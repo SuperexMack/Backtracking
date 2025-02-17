@@ -26,27 +26,33 @@
 using namespace std;
 
 
-void solve(string ans,int node,vector<string>&storage , string ss){
-   // break case 
-   if(node>=ss.size()){
-      storage.push_back(ans);
-    return;
-   }
-   //now i am going to do take or not take
-   
-   // take case
-   solve(ans+ss[node],node+1,storage,ss);
-   // not-take case
-   solve(ans,node+1,storage,ss);
-}
+void permutation(string newStr ,string tiles , unordered_map<string,int>& m,int n ,vector<bool>&visited){
+     // Base case
+      if(newStr.size()>=1){
+       m[newStr]++;
+      }
+     
+     for(int i = 0; i < n ; i++){
+      if(visited[i] == false){
+         visited[i] = true;
+         permutation(newStr+tiles[i] , tiles,m,n,visited);
+         permutation(newStr , tiles,m,n,visited);
+         visited[i] = false;
+      }
+     }
+
+    }
+
 
 int main(){
-   string ss = "abcd";
-   vector<string>storage;
-   string ans = "";
-   solve(ans,0,storage,ss);
-   cout<<storage.size();
-   for(int i = 0 ; i <storage.size() ; i++){
-    cout<<storage[i]<<endl;
-   }
+
+   string tiles = "AAABBC";
+   unordered_map<string,int>m;
+   int n = tiles.size();
+   string newStr = "";
+   vector<bool>visited(n,false);
+   permutation(newStr,tiles,m,n,visited);
+   cout<<m.size()<<endl;
+
+   for(auto it : m) cout<<it.first<<endl;
 }
