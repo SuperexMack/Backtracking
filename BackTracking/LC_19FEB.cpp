@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-void findPermu(int n , int& k,string ans , vector<char>alpha , string& res){
+void findPermu(int n , int& k,string& ans , vector<char>alpha , string& res){
  
  if(k==0){
   return;
@@ -14,7 +14,9 @@ void findPermu(int n , int& k,string ans , vector<char>alpha , string& res){
 
  for(int i = 0 ; i <alpha.size() ; i++){
   if(ans.empty() || ans.back() != alpha[i]) {
-    findPermu(n , k,ans+alpha[i] ,alpha ,res);
+    ans.push_back(alpha[i]);
+    findPermu(n , k,ans ,alpha ,res);
+    ans.pop_back();
   }
 }	
 
